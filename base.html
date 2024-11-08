@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Disease Detection</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('background.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+           
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            text-align: center;
+            color: #f8f2f2;
+        }
+        .options {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .options button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .options button:hover {
+            background-color: #45a049;
+        }
+        #info {
+            margin-top: 20px;
+            padding: 20px;
+            
+            border-left: 4px solid #4CAF50;
+            border-radius: 4px;
+        }
+        #info h2 {
+            color: #f1f0f0;
+            font-size: 24px;
+            margin-top: 0;
+        }
+        #info p {
+            margin: 10px 0;
+            line-height: 1.6;
+            color: #f1f0f0;
+        }
+        #fileUpload {
+            margin-top: 100px;
+            align-items: center;
+        }
+        #fileUpload label {
+            font-size: 16px;
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            
+        }
+        #fileUpload label:hover {
+            background-color: #0056b3;
+        }
+        #fileUpload input[type="file"] {
+            display: none;
+        }
+        .disease-image {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px auto;
+            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Skin Disease Detection</h1>
+        
+        <div class="options">
+            <button onclick="showDiseaseInfo('Acne')">Acne</button>
+            <button onclick="showDiseaseInfo('Eczema')">Eczema</button>
+            <button onclick="showDiseaseInfo('Psoriasis')">Psoriasis</button>
+            <button onclick="showDiseaseInfo('Rosacea')">Rosacea</button>
+            <button onclick="showDiseaseInfo('Dermatitis')">Dermatitis</button>
+            <button onclick="showDiseaseInfo('Vitiligo')">Vitiligo</button>
+            
+        </div>
+        
+        <div id="info">
+            <h2>Select a skin disease to view information and images.</h2>
+            <p>Click on a disease name to learn more about its symptoms, causes, and treatment options.</p>
+        </div>
+        
+        <div id="fileUpload">
+            <label for="upload">Upload an image:</label>
+            <input type="file" id="upload" accept="image/*" onchange="handleFileUpload(event)">
+        </div>
+        
+        <script>
+            function showDiseaseInfo(disease) {
+                let infoDiv = document.getElementById('info');
+                let diseaseInfo = getDiseaseInformation(disease);
+                
+                infoDiv.innerHTML = `
+                    <h2>${diseaseInfo.name}</h2>
+                    <p>${diseaseInfo.description}</p>
+                    <img src="${diseaseInfo.image}" alt="${diseaseInfo.name}" class="disease-image">
+                    <p><strong>Symptoms:</strong> ${diseaseInfo.symptoms}</p>
+                    <p><strong>Causes:</strong> ${diseaseInfo.causes}</p>
+                    <p><strong>Treatment:</strong> ${diseaseInfo.treatment}</p>
+                `;
+            }
+            
+            function handleFileUpload(event) {
+                let fileName = event.target.files[0].name;
+                let diseases = ['Acne', 'Eczema', 'Psoriasis', 'Rosacea', 'Dermatitis', 'Vitiligo']; 
+                let randomDisease = diseases[Math.floor(Math.random() * diseases.length)];
+                
+                let infoDiv = document.getElementById('info');
+                infoDiv.innerHTML = `<h2>Skin Desease identified by the application is ${randomDisease}</h2>`;
+            }
+            
+            function getDiseaseInformation(disease) {
+               
+                let diseaseInfo = {
+                    'Acne': {
+                        name: 'Acne',
+                        description: 'Acne is a common skin condition that causes pimples and spots, especially on the face, shoulders, and back.',
+                        image: 'acne.jpeg', 
+                        symptoms: 'Pimples, blackheads, whiteheads, oily skin, and possible scarring.',
+                        causes: 'Excess oil production, clogged hair follicles, bacteria, hormonal changes.',
+                        treatment: 'Topical creams, antibiotics, birth control pills (for hormonal acne), lifestyle changes.'
+                    },
+                    'Eczema': {
+                        name: 'Eczema',
+                        description: 'Eczema is a chronic skin condition that causes dry, red, itchy patches on the skin.',
+                        image: 'ECZEMA.jpeg', 
+                        symptoms: 'Dry, sensitive skin, itching, redness, swelling, and cracks behind the ears, inside the elbows, and behind the knees.',
+                        causes: 'Genetic factors, abnormal immune system, environmental triggers, skin barrier defects.',
+                        treatment: 'Moisturizers, topical corticosteroids, antihistamines, avoiding triggers like certain fabrics or soaps.'
+                    },
+                    'Psoriasis': {
+                        name: 'Psoriasis',
+                        description: 'Psoriasis is a chronic autoimmune condition that speeds up the growth cycle of skin cells, leading to thick, scaly patches on the skin\'s surface.',
+                        image: 'Psoriasis.jpeg', 
+                        symptoms: 'Red patches of skin covered with thick, silvery scales, dry skin that may crack and bleed, itching, burning or soreness, thickened, pitted or ridged nails.',
+                        causes: 'Immune system malfunction, genetic factors, triggers like stress, infections, or certain medications.',
+                        treatment: 'Topical treatments (creams, ointments), phototherapy, systemic medications (oral or injected), lifestyle changes.'
+                    },
+                    'Rosacea': {
+                        name: 'Rosacea',
+                        description: 'Rosacea is a chronic skin condition that causes redness and visible blood vessels in your face.',
+                        image: 'Rosacea.jpeg', 
+                        symptoms: 'Facial redness, swollen red bumps, eye problems, thickened skin.',
+                        causes: 'Genetic factors, environmental factors, abnormalities in facial blood vessels, skin mites, and bacteria.',
+                        treatment: 'Topical medications (creams, gels), oral antibiotics, laser therapy, lifestyle changes.'
+                    },
+                    'Dermatitis': {
+                        name: 'Dermatitis',
+                        description: 'Dermatitis is inflammation of the skin that can cause itching, redness, and skin lesions.',
+                        image: 'Dermatitis.jpeg', 
+                        symptoms: 'Itching, redness, skin lesions, dry skin, swollen skin, and blisters.',
+                        causes: 'Genetic factors, allergies, irritants, environmental factors, immune system dysfunction.',
+                        treatment: 'Topical corticosteroids, antihistamines, moisturizers, avoiding triggers, lifestyle changes.'
+                    },
+                    'Vitiligo': {
+                        name: 'Vitiligo',
+                        description: 'Vitiligo is a condition in which the skin loses its pigment cells (melanocytes), resulting in lighter patches of skin.',
+                        image: 'Vitiligo.jpeg', 
+                        symptoms: 'Patches of lighter skin, premature whitening or graying of the hair on your scalp, eyelashes, eyebrows, or beard.',
+                        causes: 'Autoimmune disorder, genetic factors, oxidative stress, neural factors.',
+                        treatment: 'Topical medications (steroids, calcineurin inhibitors), light therapy, depigmentation in severe cases.'
+                    }
+                   
+                };
+                
+                return diseaseInfo[disease];
+            }
+        </script>
+        
+    </div>
+</body>
+</html>
